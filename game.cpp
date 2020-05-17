@@ -82,6 +82,9 @@ void Game::handleEvents(){
     isRunning = false;
     break;
   case SDL_MOUSEBUTTONDOWN:
+    if (board->getWinner() != UNPLAYED) {
+      break;
+    }
     int x,y;
     SDL_GetMouseState(&x, &y);
     for (int i = 0; i < 9; i++) {
@@ -113,6 +116,14 @@ void Game::handleEvents(){
 
 void Game::update(){
   cnt++ ;
+  if (cnt % 20 == 0) {
+    (void) 0;
+  }
+  
+    
+    
+  
+
 
   
 }

@@ -15,6 +15,7 @@ public:
   SDL_Rect * getIthSquare(int n);
   int getIthOnSquare(int n);
   void setIthOnSquare(int n,int currPlayer);
+  int getWinner();
 
 private:
   SDL_Texture *boardTexture;
@@ -26,6 +27,10 @@ private:
 
   std::array<SDL_Rect,9> squares;
   std::array<int,9> onSquare;
+
+  bool gameOver;
+  int winner;
+  std::array<int,2> winnerLineRectIds;
   
 
   

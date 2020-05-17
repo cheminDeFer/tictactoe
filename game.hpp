@@ -22,7 +22,6 @@ public:
   void clean();
 
   bool running();
-
 private:
   Board *board;
   int SCREEN_WIDTH;
