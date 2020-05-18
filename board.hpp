@@ -16,6 +16,8 @@ public:
   int getIthOnSquare(int n);
   void setIthOnSquare(int n,int currPlayer);
   int getWinner();
+  void Reset();
+  bool getGameOver();
 
 private:
   SDL_Texture *boardTexture;

@@ -11,7 +11,7 @@
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
-const int FPS = 30;
+const int FPS = 60;
 const int frameDelay = 1000/FPS;
 
 enum moveSprite

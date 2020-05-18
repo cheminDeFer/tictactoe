@@ -104,8 +104,22 @@ void Game::handleEvents(){
 	currentMove = -1;
       }
     }
-
     break;
+    
+  case SDL_KEYDOWN:
+    switch (event.key.keysym.sym) {
+    case SDLK_SPACE :
+      if (board->getGameOver()) {
+	board->Reset();
+      }
+      
+      break;
+    
+    default:
+      break;
+    }
+
+    
   default:
     currentMove = -1;
     break;

@@ -54,6 +54,14 @@ Board::~Board(){
 }
 
 
+void Board::Reset(){
+  gameOver = false;
+  winner = 0;
+  for (auto &i : onSquare) {
+    i = UNPLAYED;
+  }
+
+}
 
 SDL_Rect * Board::getIthSquare(int n){
   return &squares[n];
@@ -78,7 +86,7 @@ bool helper(int x,int y,int z){
 }
 
 void Board::Update(int currPlayer, int squarePlayed){
-  std::cout << "squarePlayed: " <<squarePlayed  << '\n';
+
   if (squarePlayed != -1) {
     onSquare[squarePlayed] = currPlayer;
   }
@@ -89,50 +97,46 @@ void Board::Update(int currPlayer, int squarePlayed){
       winner = onSquare[3*i];
       winnerLineRectIds[0] = 3*i;
       winnerLineRectIds[1] = 3*i+2;
-      
+
       gameOver = true;
     }
   }
   for (int i = 0; i < 3; i++) {
     if(helper(onSquare[i],onSquare[i+3],onSquare[i+6])){
-      winner = onSquare[3*i];
+      winner = onSquare[i];
       winnerLineRectIds[0] = i;
       winnerLineRectIds[1] = i+6;
-      
+      gameOver = true;
+
     }
   }
 
   if (helper(onSquare[0],onSquare[4],onSquare[8])) {
-      winner = onSquare[0];
-      winnerLineRectIds[0] = 0;
-      winnerLineRectIds[1] = 8;
-     
+    winner = onSquare[0];
+    winnerLineRectIds[0] = 0;
+    winnerLineRectIds[1] = 8;
+    gameOver = true;
+
   }
 
   if (helper(onSquare[2],onSquare[4],onSquare[6])) {
-      winner = onSquare[2];
-      winnerLineRectIds[0] = 2;
-      winnerLineRectIds[1] = 6;
-     
+
+
+    winner = onSquare[2];
+    winnerLineRectIds[0] = 2;
+    winnerLineRectIds[1] = 6;
+    gameOver = true;
   }
+  if(std::all_of(onSquare.begin(), onSquare.end(), [](int i) {return i != UNPLAYED;} ))
+    {
+      gameOver = true;
+    }
   
 
+}
 
-
-
-
-
-
-  
-
-  
-  
-  
-
-  
-
-
-
+bool Board::getGameOver(){
+  return gameOver;
 }
 
 std::pair<int,int> getRectCenter(const SDL_Rect& r){
@@ -145,7 +149,12 @@ std::pair<int,int> getRectCenter(const SDL_Rect& r){
 
 void Board::Render(){
 
-  SDL_RenderCopy(renderer, boardTexture, NULL, &destRec);
+  for (auto &i : squares) {
+    SDL_RenderCopy(renderer, boardTexture, NULL, &i);
+  }
+
+
+  
 
   SDL_Texture *tempTexture ;
 
