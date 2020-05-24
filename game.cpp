@@ -29,7 +29,7 @@ Game::Game() {
 
 Game::~Game() noexcept
 {
-  //delete board;
+  
 
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
