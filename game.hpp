@@ -6,11 +6,15 @@
 #include "board.hpp"
 #include <iostream>
 #include <array>
+#include <memory>
+#include "button.hpp"
 class Game
 {
 public:
   Game();
-  ~Game();
+  Game(const Game&) = delete;
+  Game& operator=(const Game&) = delete;
+  ~Game() noexcept;
 
   void init(const char* title, int xpos, int ypos, int widht, int height, bool fullscreen);
 
@@ -23,14 +27,19 @@ public:
 
   bool running();
 private:
-  Board *board;
+  std::unique_ptr<Board>  board;
   int SCREEN_WIDTH;
   int SCREEN_HEIGHT;
   bool isRunning;
   SDL_Window *window;
   SDL_Renderer *renderer;
+  bool started;
   int currPlayer;
   int currentMove;
+
+  std::unique_ptr<Button>  btnX;
+  std::unique_ptr<Button>  btnO;
+
   
   
 

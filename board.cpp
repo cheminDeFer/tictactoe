@@ -4,6 +4,7 @@
 #include <utility>
 #include <algorithm>
 #include <functional>
+
 enum moveSprite
   {
    UNPLAYED = 0,
@@ -20,16 +21,23 @@ enum player
 
 
 
-Board::Board(const char *boardTextureSheet,const char *xTextureSheet,const char *oTextureSheet, SDL_Renderer* ren,int SCREEN_WIDTH, int SCREEN_HEIGHT){
+Board::Board(const char *boardTextureSheet,const char *xTextureSheet,const char *oTextureSheet, SDL_Renderer* ren,int SCREEN_WIDTH, int SCREEN_HEIGHT)
+  {
   renderer = ren;
   boardTexture = TextureManager::LoadTexture("baseShape.png", renderer);
   xTexture = TextureManager::LoadTexture("xShape.png", renderer);
+  
   oTexture = TextureManager::LoadTexture("oShape.png", renderer);
+
+  
+ 
 
   destRec.x = 0;
   destRec.y = 0;
   destRec.w = SCREEN_WIDTH/2;
   destRec.h  = SCREEN_HEIGHT;
+
+
 
 
   for (int i = 0; i < 9; i++) {
@@ -50,7 +58,10 @@ Board::Board(const char *boardTextureSheet,const char *xTextureSheet,const char 
 }
 
 Board::~Board(){
-
+  std::cout << "board destroyed\n";
+  SDL_DestroyTexture(xTexture);
+  SDL_DestroyTexture(oTexture);
+  SDL_DestroyTexture(boardTexture);
 }
 
 
@@ -131,7 +142,7 @@ void Board::Update(int currPlayer, int squarePlayed){
     {
       gameOver = true;
     }
-  
+
 
 }
 
@@ -152,9 +163,12 @@ void Board::Render(){
   for (auto &i : squares) {
     SDL_RenderCopy(renderer, boardTexture, NULL, &i);
   }
-
+  
 
   
+  
+
+
 
   SDL_Texture *tempTexture ;
 

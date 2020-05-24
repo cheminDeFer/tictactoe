@@ -3,7 +3,6 @@
 #include "SDL2/SDL.h"
 #include <array>
 
-
 class Board
 {
 public:

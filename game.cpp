@@ -1,7 +1,7 @@
 #include "game.hpp"
 #include "textureManager.hpp"
 #include "board.hpp"
-
+#include "button.hpp"
 
 
 enum moveSprite
@@ -21,14 +21,32 @@ enum player
 
 
 
-Game::Game(){
+
+Game::Game() {
 
 }
-Game::~Game()
+
+
+Game::~Game() noexcept
 {
+  //delete board;
 
-
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
+  SDL_Quit();
+  TTF_Quit();
+  
+  std::cout << "game donezo" << "\n";
 }
+
+
+
+
+
+
+
+
+
 
 bool isInsideRect(int x, int y, SDL_Rect r) {
   return y > r.y &&  (y < r.y+r.h)   &&  x>r.x  &&  (x < r.x + r.w);
@@ -59,8 +77,17 @@ void Game::init(const char *title, int xpos, int ypos, int widht, int height, bo
       SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
       std::cout << "render created" << "\n";
     }
+    TTF_Init();
+
+    
     isRunning = true;
-    board = new  Board("baseShape.png","xShape.png","oShape.png",renderer,SCREEN_WIDTH,SCREEN_HEIGHT);
+    started = false;
+    
+   
+    
+    btnX = std::make_unique<Button>("lazy.ttf","PlayerX",200,0,100,100, renderer);
+    btnO = std::make_unique<Button>("lazy.ttf","PlayerO",200,200,100,100, renderer);
+    board = std::make_unique<Board>("baseShape.png","xShape.png","oShape.png",renderer,SCREEN_WIDTH,SCREEN_HEIGHT) ;
     currPlayer = playerX;
     currentMove = -1 ;
 
@@ -82,11 +109,28 @@ void Game::handleEvents(){
     isRunning = false;
     break;
   case SDL_MOUSEBUTTONDOWN:
-    if (board->getWinner() != UNPLAYED) {
-      break;
-    }
     int x,y;
     SDL_GetMouseState(&x, &y);
+    if (board->getWinner() != UNPLAYED  ) {
+      
+      break;
+    }
+    if (!started) {
+      if (isInsideRect(x,y,btnX->getRect())) {
+	
+	started = true;
+	currPlayer = playerX;
+      }
+      if (isInsideRect(x,y,btnO->getRect())) {
+	started = true;
+	currPlayer = playerO;
+      }
+
+      break;
+      
+    }
+    
+    
     for (int i = 0; i < 9; i++) {
       if(isInsideRect(x,y,*board->getIthSquare(i)))
 	{
@@ -109,9 +153,10 @@ void Game::handleEvents(){
   case SDL_KEYDOWN:
     switch (event.key.keysym.sym) {
     case SDLK_SPACE :
-      if (board->getGameOver()) {
-	board->Reset();
-      }
+      
+      board->Reset();
+      started = false;
+      
       
       break;
     
@@ -146,19 +191,20 @@ void Game::update(){
 void Game::render(){
   SDL_RenderClear(renderer);
 
-  board->Render();
+  //board->Render();
+  if (started) {
+    board->Render();
+  }
+  else {
+    btnX->Render();
+    btnO->Render();
+  }
+  
 
 
   SDL_RenderPresent(renderer);
 }
 
-void Game::clean(){
-  delete board;
-  SDL_DestroyRenderer(renderer);
-  SDL_DestroyWindow(window);
-  SDL_Quit();
-  std::cout << "game donezo" << "\n";
-}
 
 
 
