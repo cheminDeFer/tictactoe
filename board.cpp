@@ -22,12 +22,14 @@ enum player
 
 
 Board::Board(const char *boardTextureSheet,const char *xTextureSheet,const char *oTextureSheet, SDL_Renderer* ren,int SCREEN_WIDTH, int SCREEN_HEIGHT)
+  :boardTexture (std::unique_ptr<SDL_Texture,TextureDeleter>( TextureManager::LoadTexture(boardTextureSheet, ren)) ),
+   xTexture (std::unique_ptr<SDL_Texture,TextureDeleter>( TextureManager::LoadTexture(xTextureSheet, ren)) ),
+   oTexture (std::unique_ptr<SDL_Texture,TextureDeleter>( TextureManager::LoadTexture(oTextureSheet, ren)) )
+   
   {
   renderer = ren;
-  boardTexture = TextureManager::LoadTexture(boardTextureSheet, renderer);
-  xTexture = TextureManager::LoadTexture(xTextureSheet, renderer);
   
-  oTexture = TextureManager::LoadTexture(oTextureSheet, renderer);
+  
 
   
  
@@ -59,9 +61,9 @@ Board::Board(const char *boardTextureSheet,const char *xTextureSheet,const char 
 
 Board::~Board(){
   std::cout << "board destroyed\n";
-  SDL_DestroyTexture(xTexture);
-  SDL_DestroyTexture(oTexture);
-  SDL_DestroyTexture(boardTexture);
+  
+  
+  
 }
 
 
@@ -155,22 +157,15 @@ std::pair<int,int> getRectCenter(const SDL_Rect& r){
 void Board::Render(){
 
   for (auto &i : squares) {
-    SDL_RenderCopy(renderer, boardTexture, NULL, &i);
+
+    boardTexture.render(renderer, NULL, &i);
   }
   
-
-  
-  
-
-
-
-  SDL_Texture *tempTexture ;
-
   for (int i = 0; i < 9; i++) {
 
     if (onSquare[i] != UNPLAYED) {
-      tempTexture = onSquare[i] == PLAYED_X ? xTexture  :oTexture;
-      SDL_RenderCopy(renderer, tempTexture, NULL, &squares[i]);
+      onSquare[i] == PLAYED_X ? xTexture.render(renderer, NULL, &squares[i])  :oTexture.render(renderer, NULL, &squares[i]);
+      
     }
 
   }

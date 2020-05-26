@@ -2,7 +2,7 @@
 #define BOARD_H
 #include "SDL2/SDL.h"
 #include <array>
-
+#include "myTexture.hpp"
 class Board
 {
 public:
@@ -19,9 +19,10 @@ public:
   bool getGameOver() const;
 
 private:
-  SDL_Texture *boardTexture;
-  SDL_Texture *xTexture;
-  SDL_Texture *oTexture;
+  
+  MyTexture boardTexture;
+  MyTexture xTexture;
+  MyTexture oTexture;
   SDL_Rect  destRec;
   SDL_Renderer *renderer;
   
