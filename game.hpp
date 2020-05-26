@@ -40,6 +40,7 @@ private:
 
   std::unique_ptr<Button>  btnX;
   std::unique_ptr<Button>  btnO;
+  std::unique_ptr<Button> label;
 
   
   

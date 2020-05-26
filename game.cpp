@@ -84,8 +84,8 @@ void Game::init(const char *title, int xpos, int ypos, int widht, int height, bo
     started = false;
     
    
-    
-    btnX = std::make_unique<Button>("lazy.ttf","PlayerX",200,0,100,100, renderer);
+    label = std::make_unique<Button>("lazy.ttf","Select first Player:",200,0,200,100, renderer);
+    btnX = std::make_unique<Button>("lazy.ttf","PlayerX",200,100,100,100, renderer);
     btnO = std::make_unique<Button>("lazy.ttf","PlayerO",200,200,100,100, renderer);
     board = std::make_unique<Board>("baseShape.png","xShape.png","oShape.png",renderer,SCREEN_WIDTH,SCREEN_HEIGHT) ;
     currPlayer = playerX;
@@ -196,6 +196,7 @@ void Game::render(){
     board->Render();
   }
   else {
+    label->Render();
     btnX->Render();
     btnO->Render();
   }
