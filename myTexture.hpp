@@ -1,3 +1,6 @@
+#ifndef MYTEXTURE_H
+#define MYTEXTURE_H
+
 #include "SDL2/SDL.h"
 #include <iostream>
 #include <memory>
@@ -22,3 +25,5 @@ public:
   }
   
 };
+#endif /* MYTEXTURE_H */
+
