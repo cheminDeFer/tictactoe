@@ -2,8 +2,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
-#include "game.hpp";
-
+#include "game.hpp"
 
 #include <iostream>
 #include <vector>
@@ -27,13 +26,13 @@ enum player
    playerO = 2
   };
 
-std::vector<SDL_Rect> places;
+
 
 
 
 Game *game = nullptr;
 
-int main(int argc, char *argv[])
+int main()
 {
   uint32_t frameStart;
   int frameTime;

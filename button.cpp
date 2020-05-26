@@ -13,10 +13,6 @@ Button::Button(const char* fontFileName,const char* caption,int x,int y, int wid
   renderer = ren;
   
   std::cout << "button created\n";
-
-    
-
-  
 }
 
 void Button::Render(){

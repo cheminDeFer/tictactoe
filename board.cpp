@@ -24,10 +24,10 @@ enum player
 Board::Board(const char *boardTextureSheet,const char *xTextureSheet,const char *oTextureSheet, SDL_Renderer* ren,int SCREEN_WIDTH, int SCREEN_HEIGHT)
   {
   renderer = ren;
-  boardTexture = TextureManager::LoadTexture("baseShape.png", renderer);
-  xTexture = TextureManager::LoadTexture("xShape.png", renderer);
+  boardTexture = TextureManager::LoadTexture(boardTextureSheet, renderer);
+  xTexture = TextureManager::LoadTexture(xTextureSheet, renderer);
   
-  oTexture = TextureManager::LoadTexture("oShape.png", renderer);
+  oTexture = TextureManager::LoadTexture(oTextureSheet, renderer);
 
   
  
@@ -48,8 +48,8 @@ Board::Board(const char *boardTextureSheet,const char *xTextureSheet,const char 
     tmpRect.y = i/3 * tmpRect.h;
     squares[i] = tmpRect;
   }
-  for (int i = 0; i < 9; i++) {
-    onSquare[i] = UNPLAYED;
+  for ( auto &i : onSquare) {
+    i = UNPLAYED;
   }
   winner = 0;
   winnerLineRectIds = {0,0};
@@ -87,7 +87,7 @@ int Board::getIthOnSquare(int n){
   return onSquare[n];
 }
 
-int Board::getWinner(){
+int Board::getWinner() const{
   return winner;
 }
 
@@ -101,7 +101,6 @@ void Board::Update(int currPlayer, int squarePlayed){
   if (squarePlayed != -1) {
     onSquare[squarePlayed] = currPlayer;
   }
-
 
   for (int i = 0; i < 3; i++) {
     if(helper(onSquare[3*i],onSquare[3*i+1],onSquare[3*i+2])){
@@ -139,17 +138,12 @@ void Board::Update(int currPlayer, int squarePlayed){
     gameOver = true;
   }
   if(std::all_of(onSquare.begin(), onSquare.end(), [](int i) {return i != UNPLAYED;} ))
-    {
-      gameOver = true;
-    }
-
-
+    gameOver = true;
 }
 
-bool Board::getGameOver(){
+bool Board::getGameOver() const{
   return gameOver;
 }
-
 std::pair<int,int> getRectCenter(const SDL_Rect& r){
 
   return std::make_pair(r.x + r.w / 2 , r.y + r.h/2);

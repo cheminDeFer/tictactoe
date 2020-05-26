@@ -1,11 +1,11 @@
 #OBJS specifies which files to compile as part of the project
 OBJS = tictactoe.cpp game.cpp textureManager.cpp board.cpp button.cpp
 #CC specifies which compiler we're using
-CC = g++
+CC = clang++
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
 # -w suppresses all warnings
-COMPILER_FLAGS = -w -std=c++17
+COMPILER_FLAGS = -Weverything -std=c++1z
 
 #LINKER_FLAGS specifies the libraries we're linking against
 LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf

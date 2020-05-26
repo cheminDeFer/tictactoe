@@ -31,9 +31,10 @@ private:
   int SCREEN_WIDTH;
   int SCREEN_HEIGHT;
   bool isRunning;
+  bool started;
   SDL_Window *window;
   SDL_Renderer *renderer;
-  bool started;
+  
   int currPlayer;
   int currentMove;
 

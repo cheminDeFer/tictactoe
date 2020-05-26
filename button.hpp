@@ -23,7 +23,7 @@ public:
 private:
   SDL_Rect r;
   MyTexture texture;
-  std::string caption;
+  std::string m_caption;
   
 
   SDL_Renderer *renderer;

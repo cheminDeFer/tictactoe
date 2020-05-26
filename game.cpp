@@ -23,7 +23,7 @@ enum player
 
 
 Game::Game() {
-error;
+
 }
 
 
@@ -48,7 +48,7 @@ Game::~Game() noexcept
 
 
 
-bool isInsideRect(int x, int y, SDL_Rect r) {
+inline bool isInsideRect(int const x, int const y, SDL_Rect const r) {
   return y > r.y &&  (y < r.y+r.h)   &&  x>r.x  &&  (x < r.x + r.w);
 }
 
