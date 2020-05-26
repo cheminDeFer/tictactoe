@@ -23,7 +23,7 @@ enum player
 
 
 Game::Game() {
-
+error;
 }
 
 
