@@ -18,7 +18,7 @@ SDL_Texture* TextureManager::LoadTextureFromFont(const char * fontFileName,int f
   
   TTF_Font *font = TTF_OpenFont(fontFileName, fontSize);
   
-  if (font == NULL) std::cout << "noFont\n";
+  if (font == NULL) std::cout <<fontFileName <<"noFont\n";
   SDL_Surface *tmpSurface = TTF_RenderText_Solid(font, caption, clr);
   SDL_Texture *tex = SDL_CreateTextureFromSurface(ren, tmpSurface);
   SDL_FreeSurface(tmpSurface);

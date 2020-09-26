@@ -94,7 +94,7 @@ int Board::getWinner() const{
 }
 
 
-bool helper(int x,int y,int z){
+inline bool helper(int x,int y,int z){
   return (x != UNPLAYED)  && (x==y) && (y==z) ;
 }
 
