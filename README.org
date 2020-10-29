@@ -1,0 +1,23 @@
+* tictactoe
+tictactoe game in C++ with SDL2 libraries.
+* Prerequsites
+- Make
+- C++17 supporting compiler such as:  clang++.
+ g++ should also work if you tweak warning flags in Makefile
+- Libraries
+  - SDL2
+  - SDL2-image
+  - SDL2-ttf
+*  To install libraries for Ubuntu one can use:
+#+BEGIN_SRC shell
+  sudo apt-get install libsdl2-2.0-0 libsdl2-dev \
+ libsdl2-image-2.0-0 libsdl2-image-dev libsdl2-ttf-2.0-0 \
+ libsdl2-ttf-dev
+#+END_SRC
+*  To get it work
+#+BEGIN_SRC shell
+git clone https://github.com/cheminDeFer/tictactoe.git ~/<directory-you want to work>
+cd <directory-you-want-to-work>
+make 
+./tictactoe
+#+END_SRC
